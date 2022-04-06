@@ -1,0 +1,49 @@
+<%- include('includes/head.ejs', { title: 'Login' }) %>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="1006096379075-2o56con4lhsrpbviut9ok2722q0sjiue.apps.googleusercontent.com">
+  <meta name="google-signin-scope" content="profile email">
+</head>
+
+<body>
+  <%- include('includes/header.ejs') %>
+  <main id="signup">
+
+    <button id="signinButton">Sign in with Google</button>
+<script>
+  $('#signinButton').click(function() {
+    // signInCallback defined in step 6.
+    auth2.grantOfflineAccess().then(signInCallback);
+  });
+</script>
+<script>
+  function signInCallback(authResult) {
+    if (authResult['code']) {
+  
+      // Hide the sign-in button now that the user is authorized, for example:
+      $('#signinButton').attr('style', 'display: none');
+  
+      // Send the code to the server
+      $.ajax({
+        type: 'POST',
+        url: 'localhost:3000/storeauthcode',
+        // Always include an `X-Requested-With` header in every AJAX request,
+        // to protect against CSRF attacks.
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        contentType: 'application/octet-stream; charset=utf-8',
+        success: function(result) {
+          // Handle or verify the server response.
+        },
+        processData: false,
+        data: authResult['code']
+      });
+    } else {
+      // There was an error.
+    }
+  }
+  </script>
+  </main>
+</body>
+
+</html>
