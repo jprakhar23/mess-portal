@@ -3,11 +3,20 @@ const path = require("path");
 const express = require("express");
 
 const db = require("./data/database");
+
 const demoRoutes = require("./routes/demo");
 
 const app = express();
-const expressSession = require("express-session");
+
+const session = require("express-session");
+
+// const MongoDBStore = mongoDBStore(session);
 const createSessionConfig = require("./config/sessions");
+// const sessionStore = new MongoDBStore({
+//   uri: "mongodb://127.0.0.1:27017",
+//   databaseName: "messPortal",
+//   collection: "sessions",
+// });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -15,16 +24,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(demoRoutes);
 const sessionConfig = createSessionConfig();
-app.use(expressSession(sessionConfig));
+app.use(session(sessionConfig));
+app.use(demoRoutes);
 
-app.use(function (error, req, res, next) {
-  res.render("500");
-});
+// app.use(function (error, req, res, next) {
+//   res.render("500");
+// });
 
 db.connectToDatabase().then(function () {
-
   app.listen(3000);
 });
 
