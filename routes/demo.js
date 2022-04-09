@@ -8,10 +8,17 @@ const bcryptjs = require("bcryptjs");
 const { redirect } = require("express/lib/response");
 
 const app = express();
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 app.use(express.json());
-var validator = require("email-validator");
 
 const router = express.Router();
+const CLIENT_ID =
+  "1006096379075-2o56con4lhsrpbviut9ok2722q0sjiue.apps.googleusercontent.com";
+
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(CLIENT_ID);
 
 router.get("/", function (req, res) {
   res.render("welcome");
@@ -97,32 +104,51 @@ router.get("/login", function (req, res) {
   res.render("login");
 });
 
+// router.post("/login", async function (req, res) {
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   const enteredUser = await db
+//     .getDb()
+//     .collection("users")
+//     .findOne({ email: email });
+//   if (!enteredUser) {
+//     console.log("could not log in!");
+//     return res.redirect("/login");
+//   }
+
+//   const passwordEqual = await bcryptjs.compare(password, enteredUser.password);
+
+//   if (!passwordEqual) {
+//     console.log("could not log in!");
+//     return res.redirect("/login");
+//   }
+//   // console.log('user authenticated!');
+
+//   req.session.user = { id: enteredUser._id, email: enteredUser.email };
+//   req.session.isAuthenticated = true;
+//   req.session.save(function () {
+//     res.redirect("/");
+//   });
+// });
+
 router.post("/login", async function (req, res) {
-  const email = req.body.email;
-  const password = req.body.password;
+  const token = req.body.token;
+  // console.log(req.body.user);
 
-  const enteredUser = await db
-    .getDb()
-    .collection("users")
-    .findOne({ email: email });
-  if (!enteredUser) {
-    console.log("could not log in!");
-    return res.redirect("/login");
+  async function verify() {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
   }
-
-  const passwordEqual = await bcryptjs.compare(password, enteredUser.password);
-
-  if (!passwordEqual) {
-    console.log("could not log in!");
-    return res.redirect("/login");
-  }
-  // console.log('user authenticated!');
-
-  req.session.user = { id: enteredUser._id, email: enteredUser.email };
-  req.session.isAuthenticated = true;
-  req.session.save(function () {
-    res.redirect("/");
-  });
+  verify()
+    .then(() => {
+      res.cookie("session-cookie", token);
+      res.send("success");
+    })
+    .catch(console.error);
 });
 
 router.get("/admin", function (req, res) {

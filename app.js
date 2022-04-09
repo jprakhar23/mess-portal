@@ -1,13 +1,14 @@
 const path = require("path");
 
 const express = require("express");
+// const cookieparser = require("cookie-parser");
 
 const db = require("./data/database");
 
 const demoRoutes = require("./routes/demo");
 
 const app = express();
-
+app.use(express.json());
 const session = require("express-session");
 
 // const MongoDBStore = mongoDBStore(session);
