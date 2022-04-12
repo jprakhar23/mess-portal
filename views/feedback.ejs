@@ -1,10 +1,54 @@
 <%- include('includes/head.ejs', { title: 'Feedback' }) %>
+<link rel="stylesheet" href="/styles/forms.css">
+
 </head>
 
 <body>
   <%- include('includes/header.ejs') %>
   <main >
     <h1>Feedback</h1>
+    <% if(!data){ %> 
+      <h2>LogIn first!</h2>
+      <a href="/login">LogIn</a>
+       
+      <% }else{ %> 
+      <div class="container">
+
+      <form action="">
+          <h1>Feedback Portal</h1>
+          <div class="areas">
+              <input type="text" value="" readonly>
+              <i class="fa fa-user"></i>
+          </div>
+          <div class="areas">
+              <input type="email" placeholder="xyz@itbhu.ac.in">
+              <i class="fa fa-envelope"></i>
+          </div>
+          <div class="areas">
+                  <select name="messname" id="messname">
+                      <div id="colorOptions">
+                      <option class="place" style="color:rgb(52, 232, 64)" value="none" selected disabled hidden>Select a Mess</option>
+                      <option value="one">Mess One</option>
+                      <option value="two">Mess Two</option>
+                      <option value="three">Mess Three</option>
+                      <option value="four">Mess Four</option>
+                      <option value="five">Mess Five</option>
+                  </div>
+                  </select>
+              <i class="fas fa-utensils"></i>
+         
+          </div>
+          <textarea cols="15" rows="5" placeholder="Your feedback"></textarea>
+          <button type="button" onclick="changeImage()">Submit</button>
+      </form>
+      </div>
+      <% } %> 
+      <script>
+          function changeImage(){
+              document.body.style.backgroundImage = "url('submit.jpg')"; 
+              document.getElementsByTagName("h1")[0].style.color = "rgba(0, 0, 10, 1)";
+          }
+      </script>
   </main>
 </body>
 
