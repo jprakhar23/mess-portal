@@ -14,14 +14,14 @@
       <% }else{ %> 
       <div class="container">
 
-      <form action="">
+      <form action="/feedback" method="POST">
           <h1>Feedback Portal</h1>
           <div class="areas">
-              <input type="text" value="" readonly>
+              <input type="text" name="name" value="<%= data.name %> " readonly>
               <i class="fa fa-user"></i>
           </div>
           <div class="areas">
-              <input type="email" placeholder="xyz@itbhu.ac.in">
+              <input type="email" name="email" value="<%= data.email %> " readonly>
               <i class="fa fa-envelope"></i>
           </div>
           <div class="areas">
@@ -38,8 +38,8 @@
               <i class="fas fa-utensils"></i>
          
           </div>
-          <textarea cols="15" rows="5" placeholder="Your feedback"></textarea>
-          <button type="button" onclick="changeImage()">Submit</button>
+          <textarea name="message" cols="15" rows="5" placeholder="Your feedback"></textarea>
+          <button type="submit" >Submit</button>
       </form>
       </div>
       <% } %> 

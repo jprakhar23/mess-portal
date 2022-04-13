@@ -29,9 +29,8 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              >Menu</a
             >
-              Menu
-            </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <% for(let i=1; i<=10; i++){ %>
               <li>
@@ -52,25 +51,30 @@
           <li class="nav-item">
             <a class="nav-link" href="/contact">Contact Us</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/messChange">Mess Change Portal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/balance">Balance</a>
+          </li>
         </ul>
       </div>
       <div class="d-flex justify-content-end collapse navbar-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-end">
           <li class="nav-item">
-            <a class="nav-link" href="/signup">SignUp</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/login">LoginIn</a>
           </li>
-          <a href="#" onclick="signOut();">Sign out</a>
-          <script>
-            function signOut() {
-              var auth2 = gapi.auth2.getAuthInstance();
-              auth2.signOut().then(function () {
-                console.log("User signed out.");
-              });
-            }
-          </script>
+          <li class="nav-item">
+            <a href="#" class="nav-link" onclick="signOut();">Sign out</a>
+            <script>
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                  console.log("User signed out.");
+                });
+              }
+            </script>
+          </li>
         </ul>
       </div>
     </div>

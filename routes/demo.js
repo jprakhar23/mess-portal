@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const emailValidator = require("deep-email-validator");
 
@@ -6,6 +7,7 @@ const db = require("../data/database");
 const bcryptjs = require("bcryptjs");
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 const cookieParser = require("cookie-parser");
 
 app.use(cookieParser());
@@ -38,9 +40,16 @@ router.get("/hostel/:id", function (req, res) {
 });
 
 router.get("/feedback", function (req, res) {
-  console.log(req.session);
+  console.log(req.session.user);
   res.render("feedback", { data: req.session.user });
   // res.send("hello");
+});
+
+router.post("/feedback", function (req, res) {
+  console.log(req.body.message);
+  console.log(req.body.name);
+  console.log(req.body.email);
+  res.redirect("/");
 });
 
 router.get("/contact", function (req, res) {
@@ -75,6 +84,13 @@ router.post("/login", async function (req, res) {
 
 router.get("/admin", function (req, res) {
   res.render("admin");
+});
+router.get("/messChange", function (req, res) {
+  res.render("mess-change");
+});
+
+router.get("/balance", function (req, res) {
+  res.render("balance");
 });
 
 router.post("/logout", function (req, res) {});
