@@ -1,5 +1,5 @@
 <%- include('includes/head.ejs', { title: 'Login' }) %>
-<link rel="stylesheet" href="/styles/forms.css">
+<!--<link rel="stylesheet" href="/styles/forms.css">-->
 <link rel="stylesheet" href="/styles/auth.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id"
@@ -8,7 +8,7 @@
 
 <body>
 <%- include('includes/header.ejs') %>
-<main id="signup">
+<main id="signup" style="text-align: center">
     <h1>Login</h1>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <script>function onSignIn(googleUser) {

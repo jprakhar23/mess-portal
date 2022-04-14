@@ -6,11 +6,11 @@
 
 <body>
 <%- include('includes/header.ejs') %>
-<main>
-    <h1>Feedback</h1>
+<main style="text-align: center">
+    <h1 style="padding: 5px;">Feedback</h1>
     <% if(!data){ %>
         <h2>LogIn first!</h2>
-        <a href="/login">LogIn</a>
+        <a href="/login"><span style="font-size: 25px">LogIn></span></a>
 
     <% }else{ %>
         <div class="container">
@@ -36,6 +36,9 @@
                             <option value="three">Mess Three</option>
                             <option value="four">Mess Four</option>
                             <option value="five">Mess Five</option>
+                            <option value="six">Mess Six</option>
+                            <option value="seven">Mess Seven</option>
+
                         </div>
                     </select>
                     <i class="fas fa-utensils"></i>
